@@ -9,8 +9,8 @@ const Nav = () => {
 							href="https://github.com/AraxielFenix"
 						>
 							<img
-								class="h-12 rounded-full border-2 border-indigo-600 hover:border-indigo-500 hover:scale-90 transform transition duration-500 ease-in-out z-40 hover:outline-none"
-								src="https://static-cdn.jtvnw.net/jtv_user_pictures/6f424ca8-2f68-43c6-b021-a3134ace9225-profile_image-70x70.png"
+								class="h-12 rounded-full border-2 border-indigo-600 hover:border-indigo-500 hover:scale-90 transform transition duration-500 ease-in-out z-40 hover:outline-none select-none"
+								src="https://pbs.twimg.com/profile_images/1381474906517409799/P3PYpXh2.jpg"
 								alt="AraxielFenix"
 							/>
 							<label
