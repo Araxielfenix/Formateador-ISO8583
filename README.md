@@ -1,31 +1,34 @@
+## Usage
 
-# Comparador
+Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
 
-El proyecto está diseñado para leer dos archivos y compararlos entre sí. Uno de los archivos es un registro de recargas de telefónica y el otro es un archivo complementario de BBVA. El resultado de la comparación se muestra en una tabla con los registros que son diferentes entre los dos archivos.
+This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
 
+```bash
+$ npm install # or pnpm install or yarn install
+```
 
-## Features
-- getFileName1(): Lee el primer archivo, lo divide en un array, y luego en un array multidimensional.
+### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
 
-- getFileName2(): Lee el segundo archivo, lo divide en un array, y luego en un array multidimensional.
+## Available Scripts
 
-- removeDuplicatesAndEmpty(array): Filtra los duplicados y las cadenas vacías del array.
+In the project directory, you can run:
 
-- loading(): Cambia el cursor a un icono de carga, cambia el texto del botón a "Comparando...", espera un segundo, ejecuta la función comparacion(), cambia el texto del botón a "Validando...", ejecuta la función addData(), cambia el texto del botón a "Comparar", oculta la animación de carga, y cambia el cursor de nuevo al valor predeterminado.
+### `npm dev` or `npm start`
 
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Usage/Examples
+The page will reload if you make edits.<br>
 
-- Entra a https://araxielfenix.github.io/Comparador/
-- La comparación puede tardar unos segundos en completarse.
-- El archivo de registro de llamadas de telefónica debe tener el siguiente formato: fecha, hora, número de teléfono, duración de la llamada, costo de la llamada, etc.
-- El archivo complementario de BBVA debe tener el siguiente formato: fecha, hora, número de teléfono, importe, etc.
+### `npm run build`
 
-## Contributing
+Builds the app for production to the `dist` folder.<br>
+It correctly bundles Solid in production mode and optimizes the build for the best performance.
 
-Si deseas contribuir a este proyecto, haz un fork del repositorio, crea una rama nueva, haz tus cambios y envía una pull request.
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
+## Deployment
 
-## Authors
-
-- [@araxielfenix](https://github.com/Araxielfenix)
+You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
