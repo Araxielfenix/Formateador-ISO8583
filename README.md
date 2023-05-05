@@ -1,34 +1,36 @@
-## Usage
 
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
+# Analizador
 
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
+Este proyecto es un analizador de mensajes ISO 8583 que extrae información específica de un mensaje ISO de longitud fija.
 
-```bash
-$ npm install # or pnpm install or yarn install
-```
+## Features
+La función analizarIso05() extrae la información del mensaje ISO que se ingresa en el campo de texto con id mensajeIso. La información extraída incluye:
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+-Tarjeta: número de cuenta de la tarjeta (pan).
+-Bitmap: indicador de los elementos de datos presentes en el mensaje.
+-Código de transacción: identificador de la transacción.
+-Processing code: código que describe el tipo de transacción.
+-Amount: monto de la transacción.
+-Settlement amount: monto que se cargará en la cuenta del banco del adquirente.
+-Transmission date and time: fecha y hora de la transacción en formato MMDDhhmmss.
+-Conversion rate cardholder billing: tasa de conversión para la moneda del tarjetahabiente.
+-System trace audit number: número de seguimiento de la transacción.
+-Local transaction time: hora de la transacción en formato hhmmss.
+-Local transaction date: fecha de la transacción en formato MMDD.
 
-## Available Scripts
+## Usage/Examples
 
-In the project directory, you can run:
+Para usar esta función, es necesario tener un mensaje ISO de longitud fija que contenga la información deseada. Se puede ingresar el mensaje en el campo de texto con id mensajeIso.
 
-### `npm dev` or `npm start`
+-Entra a https://araxielfenix.github.io/Analizador/
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Después de ingresar el mensaje, se debe llamar la función analizarIso05() para que extraiga la información del mensaje y la muestre en las variables correspondientes.
 
-The page will reload if you make edits.<br>
+Es importante tener en cuenta que la función fue creada específicamente para extraer información de mensajes ISO de longitud fija que cumplen con ciertos requisitos, por lo que no se garantiza que funcione correctamente con otros mensajes ISO.
+## Contributing
 
-### `npm run build`
+Si deseas contribuir a este proyecto, haz un fork del repositorio, crea una rama nueva, haz tus cambios y envía una pull request.
 
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
+## Authors
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-## Deployment
-
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+- [@araxielfenix](https://github.com/Araxielfenix)
