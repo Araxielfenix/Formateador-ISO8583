@@ -25,7 +25,7 @@ const Nav = () => {
 						<button
 							id="dropdownDefaultButton"
 							data-dropdown-toggle="dropdown"
-							class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800 select-none"
+							class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800 select-none"
 							type="button"
 						>
 							Herramientas{" "}
@@ -47,7 +47,7 @@ const Nav = () => {
 						</button>
 						<div
 							id="dropdown"
-							class="hidden absolute group-hover:grid mt-32 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-[#1a202c] ring-2 ring-indigo-600 place-self-center place-items-center"
+							class="hidden absolute group-hover:grid mt-32 z-10 bg-white divide-y divide-gray-100 rounded shadow dark:bg-[#1a202c] ring-2 ring-indigo-600 place-self-center place-items-center"
 						>
 							<ul
 								class="py-2 text-sm text-gray-700 dark:text-gray-200 align-middle"
