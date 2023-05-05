@@ -61,12 +61,12 @@ function inputs() {
 					role="alert"
 				>
 					<span
-						class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3"
+						class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3 select-none"
 						id="notaIcon"
 					>
 						Nota
 					</span>
-					<span class="font-semibold mr-2 text-left flex-auto">
+					<span class="font-semibold mr-2 text-left flex-auto select-none">
 						Recuerda respetar los espacios dentro de cada campo.
 					</span>
 					<svg
