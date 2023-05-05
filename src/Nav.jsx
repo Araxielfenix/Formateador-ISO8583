@@ -21,29 +21,56 @@ const Nav = () => {
 							</label>
 						</a>
 					</div>
-					<div class="flex items-center gap-4">
-						<a
-							class="group relative inline-flex items-center overflow-hidden rounded bg-indigo-600 px-8 py-3 text-white hover:outline-none focus:ring active:bg-indigo-500"
-							href="https://araxielfenix.github.io/Comparador/"
+					<div class="grid group ">
+						<button
+							id="dropdownDefaultButton"
+							data-dropdown-toggle="dropdown"
+							class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+							type="button"
 						>
-							<span class="absolute left-0 -translate-x-full transition-transform group-hover:translate-x-4">
-								<svg
-									class="h-5 w-5"
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-								>
-									<path
-										d="M13,7V4H11v3H7v2h4v3l5-4L13,7z M20.5,11.5c-0.3,0-0.6,0.1-0.8,0.4l-2.7,2.7c-0.4,0.4-0.4,1,0,1.4l2.7,2.7c0.4,0.4,1,0.4,1.4,0l2.7-2.7c0.4-0.4,0.4-1,0-1.4l-2.7-2.7C21.1,11.6,20.8,11.5,20.5,11.5z M3.5,11.5c-0.3,0-0.6,0.1-0.8,0.4L0,14.6c-0.4,0.4-0.4,1,0,1.4l2.7,2.7c0.4,0.4,1,0.4,1.4,0l2.7-2.7c0.4-0.4,0.4-1,0-1.4l-2.7-2.7C4.1,11.6,3.8,11.5,3.5,11.5z"
-										fill="currentColor"
-									/>
-								</svg>
-							</span>
-							<span class="text-sm font-medium transition-all group-hover:ml-4">
-								Comparador
-							</span>
-						</a>
+							Herramientas{" "}
+							<svg
+								class="w-4 h-4 ml-2"
+								aria-hidden="true"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M19 9l-7 7-7-7"
+								></path>
+							</svg>
+						</button>
+						<div
+							id="dropdown"
+							class="hidden absolute group-hover:grid mt-32 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 place-self-center place-items-center"
+						>
+							<ul
+								class="py-2 text-sm text-gray-700 dark:text-gray-200 align-middle "
+								aria-labelledby="dropdownDefaultButton"
+							>
+								<li>
+									<a
+										href="https://araxielfenix.github.io/Analizador/"
+										class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+									>
+										Analizador
+									</a>
+								</li>
+								<li>
+									<a
+										href="https://araxielfenix.github.io/Comparador/"
+										class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+									>
+										Comparador
+									</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
