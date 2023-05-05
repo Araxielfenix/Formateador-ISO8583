@@ -6,7 +6,7 @@ export default defineConfig({
 	server: {
 		port: 3000,
 	},
-	base: "/",
+	base: "https://araxielfenix.github.io/Formateador-ISO8583/",
 	build: {
 		target: "esnext",
 	},

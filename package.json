@@ -1,12 +1,12 @@
 {
-	"homepage": "/",
+	"homepage": "https://araxielfenix.github.io/Formateador-ISO8583/",
 	"name": "vite-template-solid",
 	"version": "0.0.0",
 	"description": "",
 	"scripts": {
 		"start": "vite",
 		"predeploy": "npm run build",
-		"deploy": "gh-pages -d dist",
+		"deploy": "npx gh-pages -d dist",
 		"dev": "vite",
 		"build": "vite build",
 		"serve": "vite preview"
