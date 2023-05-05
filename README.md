@@ -1,34 +1,25 @@
-## Usage
+# Formateador de mensajes ISO8583
 
-Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
+Este proyecto es para modificar y aplicar el formato deseado a los mensajes ISO8583
 
-This is the reason you see a `pnpm-lock.yaml`. That being said, any package manager will work. This file can be safely be removed once you clone a template.
+## Features
 
-```bash
-$ npm install # or pnpm install or yarn install
-```
+La función analizarISO() revisa el bitmap para determinar si el mensaje contiene los campos necesarios para la transacción.
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+## Usage/Examples
 
-## Available Scripts
+Para usar esta función, es necesario tener un mensaje ISO que contenga la información deseada. Se puede ingresar el mensaje en el campo de texto.
 
-In the project directory, you can run:
+-Entra a https://araxielfenix.github.io/Formateador-ISO8583/
 
-### `npm dev` or `npm start`
+Después de ingresar el mensaje, se debe oprimir el botón analizar para que extraiga la información del mensaje y la muestre en las variables correspondientes.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Es importante tener en cuenta que la función fue creada específicamente para extraer información de mensajes ISO de longitud fija que cumplen con ciertos requisitos, por lo que no se garantiza que funcione correctamente con otros mensajes ISO.
 
-The page will reload if you make edits.<br>
+## Contributing
 
-### `npm run build`
+Si deseas contribuir a este proyecto, haz un fork del repositorio, crea una rama nueva, haz tus cambios y envía una pull request.
 
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
+## Authors
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-## Deployment
-
-You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+- [@araxielfenix](https://github.com/Araxielfenix)
