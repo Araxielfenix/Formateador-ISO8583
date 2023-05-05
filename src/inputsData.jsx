@@ -15,14 +15,14 @@ function inputs() {
 				></textarea>
 				<div class="flex gap-5">
 					<button
-						class="inline-block rounded border border-current px-8 py-3 mt-5 text-sm font-medium bg-indigo-600 text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500"
+						class="inline-block rounded border border-current px-8 py-3 mt-5 text-sm font-medium bg-indigo-600 text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500 select-none"
 						id="analizar"
 						onClick={obtenerISO}
 					>
 						Analizar
 					</button>
 					<button
-						class="hidden rounded border border-current px-8 py-3 mt-5 text-sm font-medium bg-indigo-600 text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500"
+						class="hidden rounded border border-current px-8 py-3 mt-5 text-sm font-medium bg-indigo-600 text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500 select-none"
 						id="modificar"
 						onClick={modificarMensaje}
 					>
@@ -31,7 +31,7 @@ function inputs() {
 				</div>
 				<div class="flex gap-5">
 					<button
-						class="hidden rounded border border-current px-8 py-3 mt-5 text-sm font-medium bg-indigo-600 text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500"
+						class="hidden rounded border border-current px-8 py-3 mt-5 text-sm font-medium bg-indigo-600 text-white transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:text-indigo-500 select-none"
 						id="copiar"
 						onClick={copiar}
 					>

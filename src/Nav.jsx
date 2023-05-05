@@ -14,7 +14,7 @@ const Nav = () => {
 								alt="AraxielFenix"
 							/>
 							<label
-								class="text-gray-700 text-sm font-bold mb-2 md:mb-1 pr-3 group-hover:translate-x-1 -translate-x-full transition-transform z-10 cursor-pointer dark:text-white hover:outline-none"
+								class="text-gray-700 text-sm font-bold mb-2 md:mb-1 pr-3 group-hover:translate-x-1 -translate-x-full transition-transform z-10 cursor-pointer dark:text-white hover:outline-none select-none"
 								for="inline-full-name"
 							>
 								Araxiel Fenix{" "}
@@ -25,7 +25,7 @@ const Nav = () => {
 						<button
 							id="dropdownDefaultButton"
 							data-dropdown-toggle="dropdown"
-							class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+							class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800 select-none"
 							type="button"
 						>
 							Herramientas{" "}
@@ -56,7 +56,7 @@ const Nav = () => {
 								<li>
 									<a
 										href="https://araxielfenix.github.io/Analizador/"
-										class="block px-4 py-2 hover:bg-indigo-600 dark:hover:bg-indigo-600 dark:hover:text-white"
+										class="block px-4 py-2 hover:bg-indigo-600 dark:hover:bg-indigo-600 dark:hover:text-white select-none"
 									>
 										Analizador
 									</a>
@@ -64,7 +64,7 @@ const Nav = () => {
 								<li>
 									<a
 										href="https://araxielfenix.github.io/Comparador/"
-										class="block px-4 py-2 hover:bg-indigo-600 dark:hover:text-white"
+										class="block px-4 py-2 hover:bg-indigo-600 dark:hover:text-white select-none"
 									>
 										Comparador
 									</a>
