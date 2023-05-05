@@ -1,35 +1,30 @@
 
-# Analizador
+# Comparador
 
-Este proyecto es un analizador de mensajes ISO 8583 que extrae información específica de un mensaje ISO de longitud fija.
+El proyecto está diseñado para leer dos archivos y compararlos entre sí. Uno de los archivos es un registro de recargas de telefónica y el otro es un archivo complementario de BBVA. El resultado de la comparación se muestra en una tabla con los registros que son diferentes entre los dos archivos.
+
 
 ## Features
-La función analizarIso05() extrae la información del mensaje ISO que se ingresa en el campo de texto con id mensajeIso. La información extraída incluye:
+- getFileName1(): Lee el primer archivo, lo divide en un array, y luego en un array multidimensional.
 
--Tarjeta: número de cuenta de la tarjeta (pan).
--Bitmap: indicador de los elementos de datos presentes en el mensaje.
--Código de transacción: identificador de la transacción.
--Processing code: código que describe el tipo de transacción.
--Amount: monto de la transacción.
--Settlement amount: monto que se cargará en la cuenta del banco del adquirente.
--Transmission date and time: fecha y hora de la transacción en formato MMDDhhmmss.
--Conversion rate cardholder billing: tasa de conversión para la moneda del tarjetahabiente.
--System trace audit number: número de seguimiento de la transacción.
--Local transaction time: hora de la transacción en formato hhmmss.
--Local transaction date: fecha de la transacción en formato MMDD.
+- getFileName2(): Lee el segundo archivo, lo divide en un array, y luego en un array multidimensional.
+
+- removeDuplicatesAndEmpty(array): Filtra los duplicados y las cadenas vacías del array.
+
+- loading(): Cambia el cursor a un icono de carga, cambia el texto del botón a "Comparando...", espera un segundo, ejecuta la función comparacion(), cambia el texto del botón a "Validando...", ejecuta la función addData(), cambia el texto del botón a "Comparar", oculta la animación de carga, y cambia el cursor de nuevo al valor predeterminado.
+
 
 ## Usage/Examples
 
-Para usar esta función, es necesario tener un mensaje ISO de longitud fija que contenga la información deseada. Se puede ingresar el mensaje en el campo de texto con id mensajeIso.
+- Entra a https://araxielfenix.github.io/Comparador/
+- La comparación puede tardar unos segundos en completarse.
+- El archivo de registro de llamadas de telefónica debe tener el siguiente formato: fecha, hora, número de teléfono, duración de la llamada, costo de la llamada, etc.
+- El archivo complementario de BBVA debe tener el siguiente formato: fecha, hora, número de teléfono, importe, etc.
 
--Entra a https://araxielfenix.github.io/Analizador/
-
-Después de ingresar el mensaje, se debe llamar la función analizarIso05() para que extraiga la información del mensaje y la muestre en las variables correspondientes.
-
-Es importante tener en cuenta que la función fue creada específicamente para extraer información de mensajes ISO de longitud fija que cumplen con ciertos requisitos, por lo que no se garantiza que funcione correctamente con otros mensajes ISO.
 ## Contributing
 
 Si deseas contribuir a este proyecto, haz un fork del repositorio, crea una rama nueva, haz tus cambios y envía una pull request.
+
 
 ## Authors
 
