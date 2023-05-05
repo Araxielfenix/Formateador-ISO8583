@@ -4,7 +4,7 @@ export var idNumber = 0;
 export function obtenerISO() {
 	if (
 		document.getElementById("iso").value != "" &&
-		document.getElementById("iso").value.length > 350
+		document.getElementById("iso").value.length > 200
 	) {
 		if (idNumber > 0) {
 			//Elimina los inputs de la pantalla.
