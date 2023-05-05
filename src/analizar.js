@@ -1,26 +1,35 @@
+import { textoAlerta } from "./blurAlerta";
+
 export var idNumber = 0;
 export function obtenerISO() {
-	if (idNumber > 0) {
-		//Elimina los inputs de la pantalla.
-		for (let i = 0; i < idNumber; i++) {
-			document
-				.getElementById("inputs")
-				.removeChild(document.getElementById("input" + i));
+	if (
+		document.getElementById("iso").value != "" &&
+		document.getElementById("iso").value.length > 350
+	) {
+		if (idNumber > 0) {
+			//Elimina los inputs de la pantalla.
+			for (let i = 0; i < idNumber; i++) {
+				document
+					.getElementById("inputs")
+					.removeChild(document.getElementById("input" + i));
+			}
+			idNumber = 0;
+			//Limpia la consola.
+			console.clear();
 		}
-		idNumber = 0;
-		//Limpia la consola.
-		console.clear();
+		const isoMsg = document.getElementById("iso").value;
+		analizarISO(segmentarIso(isoMsg), isoMsg);
+		document.getElementById("modificar").classList.remove("hidden");
+		document.getElementById("nota").classList.remove("hidden");
+		document.getElementById("nota").classList.add("animate-bounce");
+		//Espera un segundo y elimina la clase "animate-bounce" de la nota.
+		setTimeout(() => {
+			document.getElementById("nota").classList.remove("animate-bounce");
+		}, 1500);
+		document.getElementById("notaIcon").classList.add("animate-pulse");
+	} else {
+		textoAlerta("analizarButton");
 	}
-	const isoMsg = document.getElementById("iso").value;
-	analizarISO(segmentarIso(isoMsg), isoMsg);
-	document.getElementById("modificar").classList.remove("hidden");
-	document.getElementById("nota").classList.remove("hidden");
-	document.getElementById("nota").classList.add("animate-bounce");
-	//Espera un segundo y elimina la clase "animate-bounce" de la nota.
-	setTimeout(() => {
-		document.getElementById("nota").classList.remove("animate-bounce");
-	}, 1500);
-	document.getElementById("notaIcon").classList.add("animate-pulse");
 }
 
 function segmentarIso(isoMsg) {

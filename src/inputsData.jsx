@@ -6,10 +6,10 @@ import { formatear } from "./format";
 
 function inputs() {
 	return (
-		<div class={styles.App}>
+		<div class={styles.App} id="divInputs">
 			<div class="grid justify-items-center grid-cols-1 pt-3">
 				<textarea
-					class="focus:border-indigo-600 pb-8 mx-auto h-32 w-11/12 peer block min-h-[150px] rounded border-slate-300 border shadow-sm dark:bg-slate-700 py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none"
+					class="focus:border-indigo-600 pb-8 mx-auto h-32 w-7/12 peer block min-h-[150px] rounded border-slate-300 border shadow-sm dark:bg-slate-700 py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none"
 					id="iso"
 					placeholder="..ISO00000000000000A00C00000A0C00E000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000******0000=****00000000000000000000        AQUI VA EL NOMBRE DEL COMERCIO Y EL PAIS000000000000000000            000000000MASTB000+00000000000000000000000000000000SW0W 0TQ  000& 0000000000! Q000000 00! Q000000 00! C000000 **** 000          0  0 0 0! C000000 00000000000 ! R000000"
 				></textarea>
