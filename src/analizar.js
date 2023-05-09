@@ -699,8 +699,8 @@ function agregarInputs(spanText, value) {
 		"border-slate-300",
 		"placeholder-slate-400",
 		"focus:outline-none",
-		"focus:border-sky-500",
-		"focus:ring-sky-500",
+		"focus:border-indigo-600",
+		"focus:ring-indigo-600",
 		"focus:ring-0",
 		"peer"
 	);
