@@ -18,7 +18,7 @@ export function modificarMensaje() {
 	}
 	console.log(mensajeNuevo);
 
-	document.getElementById("iso").value = mensajeNuevo;
+	document.getElementById("isoModificado").value = mensajeNuevo;
 
 	document.getElementById("copiar").classList.remove("hidden");
 	document.getElementById("switch").classList.remove("hidden");

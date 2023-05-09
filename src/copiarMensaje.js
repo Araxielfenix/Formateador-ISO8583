@@ -4,7 +4,9 @@ import { textoAlerta } from "./blurAlerta.js";
 export function copiar() {
 	//Si el switch esta desactivado, copia el mensaje del textarea "iso" al portapapeles.
 	if (document.getElementById("switchInput").checked == false) {
-		navigator.clipboard.writeText(document.getElementById("iso").value);
+		navigator.clipboard.writeText(
+			document.getElementById("isoModificado").value
+		);
 		console.log("Copiado");
 		textoAlerta("copiar");
 	}

@@ -671,7 +671,7 @@ function agregarInputs(spanText, value) {
 
 	// Crear un nuevo elemento <div>
 	const newDiv = document.createElement("div");
-	newDiv.classList.add("flex", "group", "relative", "justify-center");
+	newDiv.classList.add("group", "relative", "justify-center");
 	newDiv.id = "input" + idNumber; // Agregar un nuevo ID único al nuevo div
 
 	// Crear un nuevo elemento <input>
@@ -713,25 +713,25 @@ function agregarInputs(spanText, value) {
 	const newSpan = document.createElement("span");
 	//agregar id al span.
 	newSpan.id = "span" + idNumber;
-	newSpan.classList.add(
-		"absolute",
-		"hover:hidden",
-		"-top-10",
-		"scale-0",
-		"transition-all",
-		"rounded",
-		"bg-gray-800",
-		"p-2",
-		"text-xs",
-		"text-white",
-		"group-hover:scale-100"
-	);
+	// newSpan.classList.add(
+	// 	"absolute",
+	// 	"hover:hidden",
+	// 	"-top-10",
+	// 	"scale-0",
+	// 	"transition-all",
+	// 	"rounded",
+	// 	"bg-gray-800",
+	// 	"p-2",
+	// 	"text-xs",
+	// 	"text-white",
+	// 	"group-hover:scale-100"
+	// );
 
 	newSpan.textContent = spanText;
 
 	// Agregar el nuevo input y span al nuevo div
-	newDiv.appendChild(newInput);
 	newDiv.appendChild(newSpan);
+	newDiv.appendChild(newInput);
 
 	// Agregar el nuevo div al <div> con el id "inputs"
 	inputsDiv.appendChild(newDiv);

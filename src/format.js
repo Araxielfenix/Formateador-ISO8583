@@ -19,7 +19,7 @@ export function formatear() {
 	// });
 	if (switcher.checked == true) {
 		//Obtener el texto del textarea "iso" y guardarlo en una variable.
-		const mensaje = document.getElementById("iso").value;
+		const mensaje = document.getElementById("isoModificado").value;
 		//formatear el texto en lineas de 64 caracteres.
 		for (let i = 0; i <= mensaje.length; i++) {
 			if (i % 63 == 0) {
