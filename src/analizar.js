@@ -15,17 +15,6 @@ export function obtenerISO() {
 		document.getElementById("iso").value != "" &&
 		document.getElementById("iso").value.length > 200
 	) {
-		if (idNumber > 0) {
-			//Elimina los inputs de la pantalla.
-			for (let i = 0; i < idNumber; i++) {
-				document
-					.getElementById("inputs")
-					.removeChild(document.getElementById("input" + i));
-			}
-			idNumber = 0;
-			//Limpia la consola.
-			console.clear();
-		}
 		const isoMsg = document.getElementById("iso").value;
 		analizarISO(segmentarIso(isoMsg), isoMsg);
 		document.getElementById("modificar").classList.remove("hidden");
