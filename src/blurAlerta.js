@@ -40,11 +40,17 @@ function alerta(time) {
 function blurFields() {
 	document.getElementById("navBar").classList.add("blur-sm");
 	document.getElementById("iso").classList.add("blur-sm");
+	document.getElementById("opciones").classList.add("blur-sm");
+	document.getElementById("isoModificado").classList.add("blur-sm");
+	document.getElementById("tabs").classList.add("blur-sm");
 	document.getElementById("divInputs").classList.add("blur-sm");
 }
 
 function unblurFields() {
 	document.getElementById("navBar").classList.remove("blur-sm");
 	document.getElementById("iso").classList.remove("blur-sm");
+	document.getElementById("opciones").classList.remove("blur-sm");
+	document.getElementById("isoModificado").classList.remove("blur-sm");
+	document.getElementById("tabs").classList.remove("blur-sm");
 	document.getElementById("divInputs").classList.remove("blur-sm");
 }

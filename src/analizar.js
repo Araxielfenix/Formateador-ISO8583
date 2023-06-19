@@ -1,6 +1,15 @@
 import { textoAlerta } from "./blurAlerta";
+import { selectedTab } from "./showInputs";
+import { idNumber } from "./showInputs";
 
-export var idNumber = 0;
+// Crear objeto para almacenar los datos de cada categoría
+export const mensajeISO = {
+	informacionTransaccion: {},
+	detallesCompra: {},
+	detallesComercio: {},
+	tokensYCampos: {},
+};
+
 export function obtenerISO() {
 	if (
 		document.getElementById("iso").value != "" &&
@@ -20,6 +29,7 @@ export function obtenerISO() {
 		const isoMsg = document.getElementById("iso").value;
 		analizarISO(segmentarIso(isoMsg), isoMsg);
 		document.getElementById("modificar").classList.remove("hidden");
+		document.getElementById("tabs").classList.remove("hidden");
 		document.getElementById("nota").classList.remove("hidden");
 		document.getElementById("nota").classList.add("animate-bounce");
 		//Espera un segundo y elimina la clase "animate-bounce" de la nota.
@@ -68,19 +78,6 @@ function segmentarIso(isoMsg) {
 		bitmapBin[i] = ("0000" + parseInt(bitmap[i], 16).toString(2)).substr(-4);
 	}
 
-	//print the variables in the console as an object.
-	console.log({
-		isoHeader,
-		productIndicator,
-		releaseNumber,
-		status,
-		origenCode,
-		responseCode,
-		msgType,
-		bitmap,
-		bitmapBin,
-	});
-
 	//return the variables in an object.
 	return {
 		isoHeader,
@@ -106,7 +103,7 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 16
 		);
-		agregarInputs("Bitmap secundario", bitmapSecundario);
+		mensajeISO.informacionTransaccion.bitmapSecundario = bitmapSecundario;
 		// Convierte cada caracter del bitmap a binario y lo guarda en la variable "bitmapBin" en formato de 4 bits.
 		for (let i = 0; i < bitmapSecundario.length; i++) {
 			bitmapSecBin[i] = (
@@ -114,8 +111,8 @@ function analizarISO(datos, isoMsg) {
 			).substr(-4);
 		}
 		posicion += 16;
-		console.log("bitmapSecundario: " + bitmapSecundario);
-		console.log("bitmapSecBin: " + bitmapSecBin);
+		mensajeISO.informacionTransaccion.bitmapSecundario = bitmapSecundario;
+		mensajeISO.informacionTransaccion.bitmapSecBin = bitmapSecBin;
 	}
 	//El campo 2 no es requerido, pero es importante recorsar la posicion del bit en el bitmap.
 	//El campo 3 es el processing code, esta presente en todos los mensajes excepto en los que el msgType es 0800 y 0810.
@@ -125,9 +122,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 6
 		);
-		agregarInputs("Processing code", processingCode);
+		mensajeISO.informacionTransaccion.processingCode = processingCode;
 		posicion += 6;
-		console.log("processingCode: " + processingCode);
 	}
 	//El campo 4 es el transacction amount, esta presente en todos los mensajes excepto en los que el msgType es 0800 y 0810.
 	if (datos.bitmapBin[0].charAt(3) == 1 && datos.msgType.substr(0, 2) != "08") {
@@ -136,9 +132,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 12
 		);
-		agregarInputs("Transacction amount", transacctionAmount);
+		mensajeISO.informacionTransaccion.transacctionAmount = transacctionAmount;
 		posicion += 12;
-		console.log("transacctionAmount: " + transacctionAmount);
 	}
 	//El campo 5 es el settlement amount, esta presente en los mensajes 0200, 0220, 0420 y 0421.
 	if (datos.bitmapBin[1].charAt(0) == 1 && datos.msgType.substr(0, 2) != "08") {
@@ -147,9 +142,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 12
 		);
-		agregarInputs("Settlement amount", settlementAmount);
+		mensajeISO.informacionTransaccion.settlementAmount = settlementAmount;
 		posicion += 12;
-		console.log("settlementAmount: " + settlementAmount);
 	}
 	//El campo 6 no es requerido, pero es importante recorsar la posicion del bit en el bitmap.
 	//El campo 7 es el transmission date and time, esta presente en todos los mensajes.
@@ -159,9 +153,9 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 10
 		);
-		agregarInputs("Transmission date and time", transmissionDateAndTime);
+		mensajeISO.informacionTransaccion.transmissionDateAndTime =
+			transmissionDateAndTime;
 		posicion += 10;
-		console.log("transmissionDateAndTime: " + transmissionDateAndTime);
 	}
 	//Los campos 8 y 9 no son requeridos, pero es importante recorsar la posicion del bit en el bitmap.
 	//El campo 10 es el conversion rate, esta presente en los mensajes 0200, 0220, 0420 y 0421.
@@ -171,9 +165,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 8
 		);
-		agregarInputs("Conversion rate", conversionRate);
+		mensajeISO.informacionTransaccion.conversionRate = conversionRate;
 		posicion += 8;
-		console.log("conversionRate: " + conversionRate);
 	}
 	//El campo 11 es el system trace audit number, esta presente en todos los mensajes.
 	if (datos.bitmapBin[2].charAt(2) == 1) {
@@ -182,9 +175,9 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 6
 		);
-		agregarInputs("System trace audit number", systemTraceAuditNumber);
+		mensajeISO.informacionTransaccion.systemTraceAuditNumber =
+			systemTraceAuditNumber;
 		posicion += 6;
-		console.log("systemTraceAuditNumber: " + systemTraceAuditNumber);
 	}
 	//El campo 12 es el local transaction time, esta presente en todos los mensajes excepto en los que el msgType es 0230, 0430, 0800 y 0810.
 	if (
@@ -197,9 +190,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 6
 		);
-		agregarInputs("Hora local", localTransactionTime);
+		mensajeISO.detallesCompra.horaLocal = localTransactionTime;
 		posicion += 6;
-		console.log("localTransactionTime: " + localTransactionTime);
 	}
 	//El campo 13 es el local transaction date, esta presente en todos los mensajes excepto en los que el msgType es 0230, 0430, 0800 y 0810.
 	if (
@@ -212,9 +204,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 4
 		);
-		agregarInputs("Fecha local", localTransactionDate);
+		mensajeISO.detallesCompra.fechaLocal = localTransactionDate;
 		posicion += 4;
-		console.log("localTransactionDate: " + localTransactionDate);
 	}
 	//El campo 14 no es requerido, pero es importante recorsar la posicion del bit en el bitmap.
 	//El campo 15 es el settlement date, esta presente en los mensajes 0210, 0420, 0800 y 0810.
@@ -228,9 +219,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 4
 		);
-		agregarInputs("Settlement date", settlementDate);
+		mensajeISO.detallesCompra.settlementDate = settlementDate;
 		posicion += 4;
-		console.log("settlementDate: " + settlementDate);
 	}
 	//El campo 16 no es requerido, pero es importante recorsar la posicion del bit en el bitmap.
 	//El campo 17 es el capture date, esta presente en los mensajes 0200, 0210, 0220, 0420 y 0421.
@@ -244,9 +234,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 4
 		);
-		agregarInputs("Fecha de captura", captureDate);
+		mensajeISO.detallesCompra.fechaCaptura = captureDate;
 		posicion += 4;
-		console.log("captureDate: " + captureDate);
 	}
 	//El campo 18 es el merchant type, esta presente en los mensajes 0200 y 0220.
 	if (
@@ -258,9 +247,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 4
 		);
-		agregarInputs("Giro", merchantType);
+		mensajeISO.detallesComercio.giro = merchantType;
 		posicion += 4;
-		console.log("merchantType: " + merchantType);
 	}
 	//El campo 19 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[4].charAt(2)).
 	//El campo 20 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[4].charAt(3)).
@@ -276,9 +264,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 3
 		);
-		agregarInputs("Entry mode", entryMode);
+		mensajeISO.detallesCompra.entryMode = entryMode;
 		posicion += 3;
-		console.log("entryMode: " + entryMode);
 	}
 	//El campo 23 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[5].charAt(2)).
 	//El campo 24 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[5].charAt(3)).
@@ -292,9 +279,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 2
 		);
-		agregarInputs("Punto de servicio", pointOfServiceConditionCode);
+		mensajeISO.detallesCompra.puntoDeServicio = pointOfServiceConditionCode;
 		posicion += 2;
-		console.log("pointOfServiceConditionCode: " + pointOfServiceConditionCode);
 	}
 	//El campo 26 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[6].charAt(1)).
 	//El campo 27 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[6].charAt(2)).
@@ -309,12 +295,9 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 8
 		);
-		agregarInputs("Adquirente", acquiringInstitutionIdentificationCode);
+		mensajeISO.detallesComercio.adquiriente =
+			acquiringInstitutionIdentificationCode;
 		posicion += 8;
-		console.log(
-			"acquiringInstitutionIdentificationCode: " +
-				acquiringInstitutionIdentificationCode
-		);
 	}
 	//El campo 33 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[8].charAt(0)).
 	//El campo 34 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[8].charAt(1)).
@@ -325,9 +308,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 23
 		);
-		agregarInputs("Datos de la tarjeta", track2Data);
+		mensajeISO.detallesCompra.datosTarjeta = track2Data;
 		posicion += 23;
-		console.log("track2Data: " + track2Data);
 	}
 	//El campo 36 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[8].charAt(3)).
 	//El campo 37 es el retrieval reference number, esta presente en los mensajes 0200, 0210, 0220, 0230, 0400, 0410, 0420 y 0421.
@@ -337,9 +319,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 12
 		);
-		agregarInputs("Folio", retrievalReferenceNumber);
+		mensajeISO.detallesCompra.folio = retrievalReferenceNumber;
 		posicion += 12;
-		console.log("retrievalReferenceNumber: " + retrievalReferenceNumber);
 	}
 	//El campo 38 es el authorization identification response, esta presente en los mensajes 0210, 0220, 0420 y 0421.
 	if (
@@ -353,12 +334,9 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 6
 		);
-		agregarInputs("Autorizacion", authorizationIdentificationResponse);
+		mensajeISO.detallesCompra.authorizationIdentificationResponse =
+			authorizationIdentificationResponse;
 		posicion += 6;
-		console.log(
-			"authorizationIdentificationResponse: " +
-				authorizationIdentificationResponse
-		);
 	}
 	//El campo 39 es el response code, esta presente en los mensajes 0210, 0220, 0230, 0420, 0421, 0430 y 0810.
 	if (
@@ -371,9 +349,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 2
 		);
-		agregarInputs("Codigo de respuesta", responseCode);
+		mensajeISO.informacionTransaccion.codigoDeRespuesta = responseCode;
 		posicion += 2;
-		console.log("responseCode: " + responseCode);
 	}
 	//El campo 40 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[9].charAt(3)).
 	//El campo 41 es el card acceptor terminal identification, esta presente en los mensajes 0200, 0210, 0220, 0230, 0400, 0410, 0420 y 0421.
@@ -386,12 +363,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 8
 		);
-		agregarInputs("Terminal", cardAcceptorTerminalIdentification);
+		mensajeISO.detallesCompra.terminal = cardAcceptorTerminalIdentification;
 		posicion += 8;
-		console.log(
-			"cardAcceptorTerminalIdentification: " +
-				cardAcceptorTerminalIdentification
-		);
 	}
 	//El campo 42 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[10].charAt(1)).
 	//El campo 43 es el card acceptor identification, esta presente en los mensajes 0200, 0220, 0420 y 0421.
@@ -406,9 +379,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 48
 		);
-		agregarInputs("Comercio", cardAcceptorIdentification);
+		mensajeISO.detallesComercio.comercio = cardAcceptorIdentification;
 		posicion += 48;
-		console.log("cardAcceptorIdentification: " + cardAcceptorIdentification);
 	}
 	//El campo 44 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[10].charAt(3)).
 	//El campo 45 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[11].charAt(0)).
@@ -425,9 +397,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 30
 		);
-		agregarInputs("Numero de comercio", numeroAfiliacion);
+		mensajeISO.detallesComercio.numeroDeComercio = numeroAfiliacion;
 		posicion += 30;
-		console.log("numeroAfiliacion: " + numeroAfiliacion);
 	}
 	//El campo 49 es el currency code transaction, esta presente en los mensajes 0200, 0210, 0220, 0230, 0420, 0421 y 0430.
 	if (
@@ -439,9 +410,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 3
 		);
-		agregarInputs("Codigo de moneda", currencyCodeTransaction);
+		mensajeISO.detallesCompra.codigoMoneda = currencyCodeTransaction;
 		posicion += 3;
-		console.log("currencyCodeTransaction: " + currencyCodeTransaction);
 	}
 	//El campo 50 es el currency code settlement, esta presente en los mensajes 0200, 0220, 0420 y 0421.
 	if (
@@ -455,9 +425,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 3
 		);
-		agregarInputs("Codigo de moneda asociado al monto", currencyCodeSettlement);
+		mensajeISO.detallesCompra.codigoMonedaMonto = currencyCodeSettlement;
 		posicion += 3;
-		console.log("currencyCodeSettlement: " + currencyCodeSettlement);
 	}
 	//El campo 51 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[12].charAt(2)).
 	//El campo 52 es el personal identification number data, esta presente en los mensajes 0200.
@@ -467,14 +436,9 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 16
 		);
-		agregarInputs(
-			"Personal data identification",
-			personalIdentificationNumberData
-		);
+		mensajeISO.detallesTarjeta.personalIdentificationNumberData =
+			personalIdentificationNumberData;
 		posicion += 16;
-		console.log(
-			"personalIdentificationNumberData: " + personalIdentificationNumberData
-		);
 	}
 	//El campo 53 es el security related control information, esta presente en los mensajes 0200 y 0220.
 	if (
@@ -486,15 +450,9 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 16
 		);
-		agregarInputs(
-			25,
-			"Security related control information",
-			securityRelatedControlInformation
-		);
+		mensajeISO.detallesTarjeta.securityRelatedControlInformation =
+			securityRelatedControlInformation;
 		posicion += 16;
-		console.log(
-			"securityRelatedControlInformation: " + securityRelatedControlInformation
-		);
 	}
 	//El campo 54 es el additional amounts, esta presente en los mensajes 0200, 0210, 0220, 0230, 0420, 0421 y 0430.
 	if (
@@ -506,9 +464,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 12
 		);
-		agregarInputs("Additional amounts", additionalAmounts);
+		mensajeISO.detallesCompra.additionalAmounts = additionalAmounts;
 		posicion += 12;
-		console.log("additionalAmounts: " + additionalAmounts);
 	}
 	//El campo 55 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[13].charAt(2)).
 	//El campo 56 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[13].charAt(3)).
@@ -524,7 +481,7 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion + 12
 		);
 		posicion += 12;
-		console.log("redencionPuntos: " + redencionPuntos);
+		mensajeISO.detallesCompra.redencionPuntos = redencionPuntos;
 	}
 	//El campo 59 no es requerido, pero es importante recorsar la posicion del bit en el bitmap (datos.bitmapBin[14].charAt(2)).
 	//El campo 60 es el POS terminal data, esta presente en los mensajes 0200, 0220, 0420 y 0421.
@@ -538,9 +495,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 20
 		);
-		agregarInputs("Datos de la terminal", posTerminalData);
+		mensajeISO.detallesCompra.posTerminalData = posTerminalData;
 		posicion += 20;
-		console.log("posTerminalData: " + posTerminalData);
 	}
 	//El campo 61 es el POS terminal data, esta presente en todos los mensajes exepto en los 0800 y 0810.
 	if (
@@ -548,13 +504,12 @@ function analizarISO(datos, isoMsg) {
 		datos.msgType.substr(0, 2) != "08"
 	) {
 		//Obtiene el campo 61 del mensaje, este campo es de 22 caracteres y se encuentra justo despues del POS terminal data.
-		const posTerminalData = isoMsg.substring(
+		const posCardIssuer = isoMsg.substring(
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 22
 		);
-		agregarInputs("Datos de la terminal", posTerminalData);
+		mensajeISO.detallesCompra.posCardIssuer = posCardIssuer;
 		posicion += 22;
-		console.log("posTerminalData: " + posTerminalData);
 	}
 	//El campo 62 es el codigo postal, esta presente en los mensajes 0200, 0220, 0420 y 0421.
 	if (
@@ -567,9 +522,8 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 11
 		);
-		agregarInputs("Código postal", codigoPostal);
+		mensajeISO.detallesComercio.codigoPostal = codigoPostal;
 		posicion += 11;
-		console.log("codigoPostal: " + codigoPostal);
 	}
 	//El campo 63 es POS additional data, esta presente en los mensajes 0200, 0220 y 0230.
 	if (
@@ -581,32 +535,27 @@ function analizarISO(datos, isoMsg) {
 			isoMsg.indexOf("ISO") + posicion,
 			isoMsg.indexOf("ISO") + posicion + 18
 		);
-		agregarInputs("Datos adicionales", posAdditionalData);
-		console.log("posAdditionalData: " + posAdditionalData);
+		mensajeISO.tokensYCampos.posAdditionalData = posAdditionalData;
 	}
 	//Se obtiene el tokwn Q1, este campo es de 10 caracteres, se encuentra en la información adicional.
 	const tokenQ1Index = isoMsg.indexOf("Q1");
 	const tokenQ1 = isoMsg.substring(tokenQ1Index, tokenQ1Index + 12);
-	console.log("tokenQ1: " + tokenQ1);
-	agregarInputs("Token Q1", tokenQ1);
+	mensajeISO.tokensYCampos.tokenQ1 = tokenQ1;
 
 	//Se obtiene el tokwn Q2, este campo es de 10 caracteres, se encuentra en la información adicional.
 	const tokenQ2Index = isoMsg.indexOf("Q2");
 	const tokenQ2 = isoMsg.substring(tokenQ2Index, tokenQ2Index + 11);
-	console.log("tokenQ2: " + tokenQ2);
-	agregarInputs("Token Q2", tokenQ2);
+	mensajeISO.tokensYCampos.tokenQ2 = tokenQ2;
 
 	//Se obtiene el tokwn C0, este campo es de 7 caracteres, se encuentra en la información adicional.
 	const tokenC0Index = tokenQ2Index + 11;
 	const tokenC0 = isoMsg.substring(tokenC0Index, tokenC0Index + 9);
-	console.log("tokenC0: " + tokenC0);
-	agregarInputs("Token C0", tokenC0);
+	mensajeISO.tokensYCampos.tokenC0 = tokenC0;
 
 	//Se obtiene el CVV2, este campo es de 4 caracteres, se encuentra justo despues del token C0.
 	const cvv2Index = tokenC0Index + 9;
 	const cvv2 = isoMsg.substring(cvv2Index, cvv2Index + 4);
-	console.log("cvv2: " + cvv2);
-	agregarInputs("CVV2", cvv2);
+	mensajeISO.detallesCompra.cvv2 = cvv2;
 
 	//Se obtiene el modulo extranjero, este campo es de 3 caracteres, se encuentra justo despues del CVV2.
 	const moduloExtranjeroIndex = cvv2Index + 5;
@@ -614,14 +563,12 @@ function analizarISO(datos, isoMsg) {
 		moduloExtranjeroIndex,
 		moduloExtranjeroIndex + 13
 	);
-	console.log("moduloExtranjero: " + moduloExtranjero);
-	agregarInputs("Modulo extranjero", moduloExtranjero);
+	mensajeISO.tokensYCampos.moduloExtranjero = moduloExtranjero;
 
 	//Se obtiene el ECI, este campo es de 1 caracter, se encuentra justo despues del modulo extranjero.
 	const eciIndex = moduloExtranjeroIndex + 12;
 	const eci = isoMsg.substring(eciIndex, eciIndex + 3);
-	console.log("ECI: " + eci);
-	agregarInputs("ECI", eci);
+	mensajeISO.tokensYCampos.eci = eci;
 
 	//Se obtiene el indicador de información adicional, este campo es de 1 caracter, se encuentra justo despues del ECI.
 	const indicadorInfoAdicionalIndex = eciIndex + 3;
@@ -629,14 +576,12 @@ function analizarISO(datos, isoMsg) {
 		indicadorInfoAdicionalIndex,
 		indicadorInfoAdicionalIndex + 2
 	);
-	console.log("indicadorInfoAdicional: " + indicadorInfoAdicional);
-	agregarInputs("Indicador de información adicional", indicadorInfoAdicional);
+	mensajeISO.tokensYCampos.indicadorInfoAdicional = indicadorInfoAdicional;
 
 	//Se obtiene el CV2, este campo es de 1 caracter, se encuentra justo despues del indicador de información adicional.
 	const cv2Index = indicadorInfoAdicionalIndex + 2;
 	const cv2 = isoMsg.substring(cv2Index, cv2Index + 2);
-	console.log("CV2: " + cv2);
-	agregarInputs("CV2", cv2);
+	mensajeISO.tokensYCampos.cv2 = cv2;
 
 	//Se obtiene el authentication collector indicator, este campo es de 1 caracter, se encuentra justo despues del CV2.
 	const authenticationCollectorIndicatorIndex = cv2Index + 2;
@@ -644,96 +589,21 @@ function analizarISO(datos, isoMsg) {
 		authenticationCollectorIndicatorIndex,
 		authenticationCollectorIndicatorIndex + 3
 	);
-	console.log(
-		"authenticationCollectorIndicator: " + authenticationCollectorIndicator
-	);
-	agregarInputs(
-		"Authentication collector indicator",
-		authenticationCollectorIndicator
-	);
+	mensajeISO.tokensYCampos.authenticationCollectorIndicator =
+		authenticationCollectorIndicator;
 
 	//Se obtiene el token C4, este campo es de 21 caracteres, se encuentra 2 caracteres despues del authentication collector indicator.
 	const tokenC4Index = authenticationCollectorIndicatorIndex + 3;
 	const tokenC4 = isoMsg.substring(tokenC4Index, tokenC4Index + 22);
-	console.log("tokenC4: " + tokenC4);
-	agregarInputs("Token C4", tokenC4);
+	mensajeISO.tokensYCampos.tokenC4 = tokenC4;
 
 	//Se obtiene el token R7, este campo es de 7 caracteres, se encuentra justo despues del token C4.
 	const tokenR7Index = tokenC4Index + 22;
 	const tokenR7 = isoMsg.substring(tokenR7Index, tokenR7Index + 8);
-	console.log("tokenR7: " + tokenR7);
-	agregarInputs("Token R7", tokenR7);
-}
+	mensajeISO.tokensYCampos.tokenR7 = tokenR7;
 
-function agregarInputs(spanText, value) {
-	// Obtener una referencia al elemento <div> con el id "inputs"
-	const inputsDiv = document.getElementById("inputs");
+	selectedTab();
 
-	// Crear un nuevo elemento <div>
-	const newDiv = document.createElement("div");
-	newDiv.classList.add("group", "relative", "justify-center");
-	newDiv.id = "input" + idNumber; // Agregar un nuevo ID único al nuevo div
-
-	// Crear un nuevo elemento <input>
-	const newInput = document.createElement("input");
-	newInput.type = "text";
-	newInput.id = idNumber; // Agregar un nuevo ID único al nuevo input
-	newInput.setAttribute("onFocus", "focus()");
-	newInput.classList.add(
-		"block",
-		"px-2.5",
-		"pb-2.5",
-		"pt-4",
-		"w-full",
-		"text-sm",
-		"rounded-lg",
-		"border-1",
-		"appearance-none",
-		"text-gray-700",
-		"dark:text-white",
-		"text-center",
-		"bg-white",
-		"dark:bg-slate-700",
-		"border",
-		"shadow-sm",
-		"border-slate-300",
-		"placeholder-slate-400",
-		"focus:outline-none",
-		"focus:border-indigo-600",
-		"focus:ring-indigo-600",
-		"focus:ring-0",
-		"peer"
-	);
-	//newInput.placeholder = placeHolder;
-
-	// Agregar valor al nuevo input
-	newInput.value = value;
-
-	// Crear un nuevo elemento <span> para el texto adicional
-	const newSpan = document.createElement("span");
-	//agregar id al span.
-	newSpan.id = "span" + idNumber;
-	// newSpan.classList.add(
-	// 	"absolute",
-	// 	"hover:hidden",
-	// 	"-top-10",
-	// 	"scale-0",
-	// 	"transition-all",
-	// 	"rounded",
-	// 	"bg-gray-800",
-	// 	"p-2",
-	// 	"text-xs",
-	// 	"text-white",
-	// 	"group-hover:scale-100"
-	// );
-
-	newSpan.textContent = spanText;
-
-	// Agregar el nuevo input y span al nuevo div
-	newDiv.appendChild(newSpan);
-	newDiv.appendChild(newInput);
-
-	// Agregar el nuevo div al <div> con el id "inputs"
-	inputsDiv.appendChild(newDiv);
-	idNumber++;
+	//simula un click en el boton con id "transaccion".
+	document.getElementById("transaccion").click();
 }
