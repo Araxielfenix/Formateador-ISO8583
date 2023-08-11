@@ -10,7 +10,7 @@ const Nav = () => {
 						>
 							<img
 								class="h-12 rounded-full border-2 border-indigo-600 hover:border-indigo-500 hover:scale-90 transform transition duration-500 ease-in-out z-40 hover:outline-none select-none"
-								src="https://pbs.twimg.com/profile_images/1381474906517409799/P3PYpXh2.jpg"
+								src="https://pbs.twimg.com/profile_images/1688791121843884033/ha0qS6NH.jpg"
 								alt="AraxielFenix"
 							/>
 							<label
