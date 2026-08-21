@@ -1,15 +1,6 @@
 /* @refresh reload */
-import { render } from "solid-js/web";
-import "./index.css";
+import { render } from 'solid-js/web';
+import './index.css';
+import App from './App.jsx';
 
-import navBar from "./Nav";
-import alertaBox from "./alerta";
-import messageArea from "./isoAreas";
-import categories from "./tabs";
-import inputs from "./inputsData";
-
-render(navBar, nav);
-render(alertaBox, alerta);
-render(messageArea, isoMessages);
-render(categories, tabsBar);
-render(inputs, root);
+render(() => <App />, document.getElementById('root'));
